@@ -10,7 +10,7 @@ from jinja2 import Environment, PackageLoader
 import json, uuid
 import re
 import datetime
-import urllib2
+import urllib3
 import html
 from collections import Iterable
 from .options import BaseOptions, ChartOptions, ColorAxisOptions, \
@@ -25,7 +25,7 @@ from .common import Levels, Formatter, CSSObject, SVGObject, JSfunction, RawJava
     CommonObject, ArrayObject, ColorObject
 
 CONTENT_FILENAME = "content.html"
-PAGE_FILENAME = "eve_page.html"
+PAGE_FILENAME = "page.html"
 
 pl = PackageLoader('highcharts.highcharts', 'templates')
 jinja2_env = Environment(lstrip_blocks=True, trim_blocks=True, loader=pl)
@@ -334,7 +334,7 @@ class Highchart(object):
 
 
         if self.offline:
-            opener = urllib2.build_opener()
+            opener = urllib3.build_opener()
             opener.addheaders = [('User-Agent', 'Mozilla/5.0')]
 
             self.header_css = [
