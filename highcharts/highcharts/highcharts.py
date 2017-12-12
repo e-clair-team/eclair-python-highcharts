@@ -25,7 +25,7 @@ from .common import Levels, Formatter, CSSObject, SVGObject, JSfunction, RawJava
     CommonObject, ArrayObject, ColorObject
 
 CONTENT_FILENAME = "content.html"
-PAGE_FILENAME = "page.html"
+PAGE_FILENAME = "eve_page.html"
 
 pl = PackageLoader('highcharts.highcharts', 'templates')
 jinja2_env = Environment(lstrip_blocks=True, trim_blocks=True, loader=pl)
