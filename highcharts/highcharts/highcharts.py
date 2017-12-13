@@ -312,6 +312,27 @@ class Highchart(object):
             self.drilldown_data = json.dumps(self.drilldown_data_temp, cls = HighchartsEncoder)
         self._htmlcontent = self.template_content_highcharts.render(chart=self).encode('utf-8')
 
+    def buildjson(self):
+        """build HTML content only, no header or body tags"""
+        chart_dict = {}
+
+        self.option = json.dumps(self.options, cls = HighchartsEncoder)
+        options = json.loads(self.option)
+        chart_dict.update(options)
+
+        self.setoption = json.dumps(self.setOptions, cls = HighchartsEncoder)
+        setoption = json.loads(self.setoption)
+        chart_dict.update(setoption)
+
+        self.data = json.dumps(self.data_temp, cls = HighchartsEncoder)
+        data = json.loads(self.data)
+        chart_dict.update({'series': data})
+
+        return json.dumps(chart_dict)
+
+        # if self.drilldown_flag:
+        #     self.drilldown_data = json.dumps(self.drilldown_data_temp, cls = HighchartsEncoder)
+        # self._htmlcontent = self.template_content_highcharts.render(chart=self).encode('utf-8')
 
     def buildhtml(self):
         """build the HTML page
