@@ -124,8 +124,8 @@ class Highchart(object):
             #"data": #NotImplemented
             # "drilldown": DrilldownOptions(),
             # "exporting": ExportingOptions(),
-            "labels": LabelsOptions(),
-            "legend": LegendOptions(),
+            # "labels": LabelsOptions(),
+            # "legend": LegendOptions(),
             # "loading": LoadingOptions(),
             # "navigation": NavigationOptions(),
             # "pane": PaneOptions(),
