@@ -119,29 +119,29 @@ class Highchart(object):
         self.options = {
             "chart": ChartOptions(),
             #"colorAxis" : ColorAxisOptions(),
-            "colors": ColorsOptions(),
-            "credits": CreditsOptions(),
+            # "colors": ColorsOptions(),
+            # "credits": CreditsOptions(),
             #"data": #NotImplemented
-            "drilldown": DrilldownOptions(),
-            "exporting": ExportingOptions(),
+            # "drilldown": DrilldownOptions(),
+            # "exporting": ExportingOptions(),
             "labels": LabelsOptions(),
             "legend": LegendOptions(),
-            "loading": LoadingOptions(),
-            "navigation": NavigationOptions(),
-            "pane": PaneOptions(),
-            "plotOptions": PlotOptions(),
+            # "loading": LoadingOptions(),
+            # "navigation": NavigationOptions(),
+            # "pane": PaneOptions(),
+            # "plotOptions": PlotOptions(),
             "series": SeriesData(),
             "subtitle": SubtitleOptions(),
             "title": TitleOptions(),
-            "tooltip": TooltipOptions(),
+            # "tooltip": TooltipOptions(),
             "xAxis": xAxisOptions(),
             "yAxis": yAxisOptions(),   
         }
 
-        self.setOptions = {
-            "global": GlobalOptions(),
-            "lang": LangOptions(),
-        }
+        # self.setOptions = {
+        #     "global": GlobalOptions(),
+        #     "lang": LangOptions(),
+        # }
 
         self.__load_defaults__()
 
@@ -167,9 +167,9 @@ class Highchart(object):
 
 
     def __load_defaults__(self):
-        self.options["chart"].update_dict(renderTo='container')
+        # self.options["chart"].update_dict(renderTo='container')
         self.options["title"].update_dict(text='A New Highchart')
-        self.options["credits"].update_dict(enabled=False)
+        # self.options["credits"].update_dict(enabled=False)
 
 
     def add_JSsource(self, new_src):
@@ -320,19 +320,20 @@ class Highchart(object):
         options = json.loads(self.option)
         chart_dict.update(options)
 
-        self.setoption = json.dumps(self.setOptions, cls = HighchartsEncoder)
-        setoption = json.loads(self.setoption)
-        chart_dict.update(setoption)
+        # self.setoption = json.dumps(self.setOptions, cls = HighchartsEncoder)
+        # setoption = json.loads(self.setoption)
+        # chart_dict.update(setoption)
 
         self.data = json.dumps(self.data_temp, cls = HighchartsEncoder)
         data = json.loads(self.data)
         chart_dict.update({'series': data})
 
-        return chart_dict
+        if self.drilldown_flag:
+            self.drilldown_data = json.dumps(self.drilldown_data_temp, cls = HighchartsEncoder)
+            drilldown_data = json.loads(self.drilldown_data)
+            chart_dict.update(drilldown_data)
 
-        # if self.drilldown_flag:
-        #     self.drilldown_data = json.dumps(self.drilldown_data_temp, cls = HighchartsEncoder)
-        # self._htmlcontent = self.template_content_highcharts.render(chart=self).encode('utf-8')
+        return chart_dict
 
     def buildhtml(self):
         """build the HTML page
@@ -437,6 +438,7 @@ class Highchart(object):
             f.write(self.htmlcontent)
         
         f.closed
+
 
 class HighchartsEncoder(json.JSONEncoder):
     def __init__(self, *args, **kwargs):
