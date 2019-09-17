@@ -12,6 +12,7 @@ import re
 import datetime
 import urllib3
 import html
+from decimal import Decimal
 from collections import Iterable
 from .options import BaseOptions, ChartOptions, ColorAxisOptions, \
     ColorsOptions, CreditsOptions, DrilldownOptions, ExportingOptions, \
@@ -450,6 +451,8 @@ class HighchartsEncoder(json.JSONEncoder):
             key = uuid.uuid4().hex
             self._replacement_map[key] = obj.get_jstext()
             return key
+        if isinstance(obj, Decimal):
+            return float(obj)
         elif isinstance(obj, datetime.datetime):
             utc = obj.utctimetuple()
             obj = (u"Date.UTC({year},{month},{day},{hours},{minutes},{seconds},{millisec})"
