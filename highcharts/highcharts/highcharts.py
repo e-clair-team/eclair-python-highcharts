@@ -451,7 +451,7 @@ class HighchartsEncoder(json.JSONEncoder):
             key = uuid.uuid4().hex
             self._replacement_map[key] = obj.get_jstext()
             return key
-        if isinstance(obj, Decimal):
+        elif isinstance(obj, Decimal):
             return float(obj)
         elif isinstance(obj, datetime.datetime):
             utc = obj.utctimetuple()
